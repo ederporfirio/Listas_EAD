@@ -8,16 +8,17 @@
 //Arquivo heap.c
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "heap.h"
 
-struct heap {
+struct _heap {
 	int max; 	/* tamanho maximo do heap */
 	int pos;    /* proxima posicao disponivel no vetor */
 	float* prioridade; /* vetor das prioridades */
 };
 
 Heap* heap_cria(int max){
-	Heap* heap=(Heap*)malloc(sizeof(Heap));
+	Heap* heap = (Heap*) malloc(sizeof(Heap));
 	heap->max=max;
 	heap->pos=0;
 	heap->prioridade=(float*)malloc(max*sizeof(float));
@@ -26,12 +27,14 @@ Heap* heap_cria(int max){
 
 void heap_insere(Heap* heap, float prioridade){
 	if ( heap->pos <= heap->max-1 ) {
-
-		heap->prioridade[heap->pos]=prioridade;
-		corrige_acima(heap,heap->pos);heap->pos++;
+		heap->prioridade[heap->pos] = prioridade;
+		corrige_acima(heap,heap->pos);
+		heap->pos++;
+		printf("Valor Inserido\n");
 	}
 	else
 		printf("Heap CHEIO!\n");
+
 }
 
 static void troca(int a, int b, float*v) {
@@ -42,12 +45,14 @@ static void troca(int a, int b, float*v) {
 
 static void corrige_acima(Heap* heap, int pos) {
 	while(pos > 0){
-	 //Aqui está a recursãoint pai = (pos-1)/2;
+	 //Aqui está a recursão
+	 int pai = (pos-1)/2;
 	 //É uma Max Heap
 		if (heap->prioridade[pai] < heap->prioridade[pos])
-			troca(pos,pai,heap->prioridade);
+			troca(pos, pai, heap->prioridade);
 		else
-			break;pos=pai;
+			break;
+		pos=pai;
 	}
 }
 
@@ -85,4 +90,11 @@ static void corrige_abaixo(Heap* heap){
 		break;
 	pai=filho;
 	}
+}
+
+float busca_heap(Heap* heap) {
+	if (heap == NULL || heap->max == 0)
+		return 0;
+	else
+		return heap->prioridade[0];
 }

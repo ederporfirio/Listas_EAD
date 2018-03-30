@@ -1,13 +1,13 @@
 //Estrutura de Dados Avançados
 // Professor José Maria
-// 
+//
 //Aluno: Eder Jacques Porfírio Farias
 //
 // Lista de Exercícios 5
 //
 //Arquivo heap.h
 
-typedef heap Heap;
+typedef struct _heap Heap;
 
 Heap* heap_cria(int max);
 
@@ -21,6 +21,4 @@ float heap_remove(Heap* heap);
 
 static void corrige_abaixo(Heap* heap);
 
-void heap_print(Heap *heap);
-
-void heap_print_indent(Heap *heap);
+ float busca_heap(Heap* heap);
